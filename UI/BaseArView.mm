@@ -33,7 +33,7 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
 
 - (id)initWithFrameAndCaptureSession:(CGRect)frame captureSession:(AVCaptureSession *)captureSession
 {
-    self = [super initWithFrame:frame];
+    self = [self initWithFrame:frame];
     if (self)
     {
         [self setSession:captureSession];
@@ -75,6 +75,12 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
         [previewLayer setHidden:YES];
         showPreview = FALSE;
     }
+}
+
+
+- (ArPipe::PipeOutputConnector*) pipeConnector
+{
+    return connector;
 }
 
 

@@ -23,7 +23,7 @@ namespace ArPipe {
     
     Frame::~Frame()
     {
-        
+        frame.release();
     }
     
     

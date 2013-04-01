@@ -10,9 +10,16 @@
 
 namespace ArPipe {
     
+    BasePipe::BasePipe()
+    {
+        nextPipe = NULL;
+    }
+    
     void BasePipe::pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src) {
         if (nextPipe) {
             nextPipe->pushNewFrameContainer(frm, this);
+        } else {
+            delete frm;
         }
     }
     

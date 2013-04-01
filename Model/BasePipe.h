@@ -20,7 +20,9 @@ namespace ArPipe {
     class BasePipe : public BaseFrameSource {
   
     public:
-        void pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        BasePipe();
+        
+        virtual void pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
         
     

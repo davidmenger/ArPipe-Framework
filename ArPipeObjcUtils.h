@@ -9,7 +9,10 @@
 #ifndef AR_ArPipeObjcUtils_h
 #define AR_ArPipeObjcUtils_h
 
-#include "CameraFrameSource.h"
-#include "PipeOutputConnector.h"
+#include "./iOSConnectors/CameraFrameSource.h"
+#include "./iOSConnectors/PipeOutputConnector.h"
+#include "./UI/GLRenderer.h"
+#include "./UI/GLView.h"
+#include "./UI/BaseArView.h"
 
 #endif

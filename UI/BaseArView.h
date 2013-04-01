@@ -28,5 +28,6 @@
 - (void) appendAsNextPipe: (ArPipe::BaseFrameSource*) frameSource;
 - (void) showPreviewLayer;
 - (void) hidePreviewLayer;
+- (ArPipe::PipeOutputConnector*) pipeConnector;
 
 @end

@@ -10,8 +10,8 @@
 
 namespace ArPipe {
     
-    BaseFrameContainer::BaseFrameContainer(Frame *frm) {
-        frame = frm;
+    BaseFrameContainer::BaseFrameContainer(cv::Mat mat) {
+        frame = new Frame(mat);
     }
 
     Frame* BaseFrameContainer::getFrame()

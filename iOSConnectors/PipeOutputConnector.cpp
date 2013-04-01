@@ -14,6 +14,7 @@ namespace ArPipe {
         if (newFrameCallback) {
             newFrameCallback(frm);
         }
+        delete frm;
     }
     
     void PipeOutputConnector::setOnNewFrameContainerCallback(void (*callback)(BaseFrameContainer *frm))

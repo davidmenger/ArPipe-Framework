@@ -14,12 +14,14 @@
 
 #include "Frame.h"
 
+
 namespace ArPipe {
+    
+    
     
     class BaseFrameContainer {
       
     public:
-        BaseFrameContainer(Frame *frm);
         BaseFrameContainer(cv::Mat frameMat);
         
         ~BaseFrameContainer();
