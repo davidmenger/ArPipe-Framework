@@ -6,25 +6,36 @@
 //  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
 //
 
+
 #include "BaseFrameSource.h"
 #include "BasePipe.h"
 
 namespace ArPipe {
     
     
-    void BaseFrameSource::setNextPipe(BasePipe *pipe)
-    {
-        nextPipe = pipe;
-    }
-    
-    BasePipe* BaseFrameSource::getNextPipe()
-    {
-        return nextPipe;
-    }
-    
     BaseFrameSource::~BaseFrameSource()
     {
-        delete nextPipe;
+    
+    }
+    
+    void BaseFrameSource::addNextPipe(BasePipe *pipe)
+    {
+        nextPipes.push_back(pipe);
+    }
+    
+    void BaseFrameSource::pushFrameConainerToNextPipes(BaseFrameContainer *container)
+    {
+        if (nextPipes.size() == 0) {
+            delete container;
+        } else {
+            BaseFrameContainer *tmp = container;
+            for(std::vector<BasePipe*>::iterator iterator = nextPipes.begin(); iterator != nextPipes.end(); ++iterator) {
+                (*iterator)->pushNewFrameContainer(tmp, this);
+                if ((iterator+1) != nextPipes.end()) {
+                    tmp = tmp->clone();
+                }
+            }
+        }
     }
     
     

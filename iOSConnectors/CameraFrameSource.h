@@ -26,6 +26,7 @@
 - (void) stop;
 - (void) setNextPipe: (ArPipe::BasePipe *) pipe;
 - (AVCaptureSession*) captureSession;
+- (ArPipe::BaseFrameSource*) frameSource;
 
 
 @end

@@ -14,7 +14,16 @@
 #include "./Model/BaseFrameSource.h"
 #include "./Model/BaseFrameContainer.h"
 #include "./Model/Frame.h"
+#include "./Model/PipeLine.h"
+#include "./Pipes/Basic/PolarRotate.h"
+#include "./Pipes/Effects/Threshold.h"
+#include "./Pipes/Effects/BlackAndWhite.h"
+#include "./Pipes/Effects/Canny.h"
+#include "./Pipes/Effects/Blur.h"
 
+#include "./Pipes/Recognizers/FindContours.h"
+
+#include "./Pipes/Drawers/DrawContrours.h"
 
 
 

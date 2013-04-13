@@ -18,7 +18,7 @@ namespace ArPipe {
     {
     public:
         void setOnNewFrameContainerCallback(void (*callback)(BaseFrameContainer *frm));
-        void pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
     protected:
         void (*newFrameCallback)(BaseFrameContainer *frm);

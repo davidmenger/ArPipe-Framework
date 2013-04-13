@@ -12,15 +12,23 @@ namespace ArPipe {
     
     BasePipe::BasePipe()
     {
-        nextPipe = NULL;
+        
     }
     
+    BasePipe::BasePipe(BaseFrameSource *previousPipe)
+    {
+        BasePipe::BasePipe();
+        previousPipe->addNextPipe(this);
+    }
+    
+    void BasePipe::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src)
+    {
+        // override this method
+    }
+
     void BasePipe::pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src) {
-        if (nextPipe) {
-            nextPipe->pushNewFrameContainer(frm, this);
-        } else {
-            delete frm;
-        }
+        this->processFrameContainer(frm, src);
+        this->pushFrameConainerToNextPipes(frm);
     }
     
 }

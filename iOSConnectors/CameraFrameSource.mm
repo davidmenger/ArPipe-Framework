@@ -31,6 +31,7 @@
         // processing algorithm can cope. We'll specify medium quality for the
         // chosen device.
         captureSession.sessionPreset = AVCaptureSessionPresetMedium;
+        //captureSession.sessionPreset = AVCaptureSessionPresetLow;
         
         // Find a suitable AVCaptureDevice
         AVCaptureDevice *device = [AVCaptureDevice
@@ -66,6 +67,14 @@
             
             //output.minFrameDuration = CMTimeMake(1, 60); //1,15
             
+            // If you wish to cap the frame rate to a known value, such as 15 fps, set
+            // minFrameDuration.
+            AVCaptureConnection *conn = [output connectionWithMediaType:AVMediaTypeVideo];
+            if (conn.supportsVideoMinFrameDuration) {
+                conn.videoMinFrameDuration = CMTimeMake(1,30);
+            } else {
+                output.minFrameDuration = CMTimeMake(1,30);
+            }
             
             
                 
@@ -82,7 +91,7 @@
 {
     if (frameSource) {
         ArPipe::BaseFrameContainer *frm = new ArPipe::BaseFrameContainer([self imageFromSampleBuffer:sampleBuffer]);
-        frameSource->getNextPipe()->pushNewFrameContainer(frm, frameSource->getNextPipe());
+        frameSource->pushFrameConainerToNextPipes(frm);
     }
 }
 
@@ -142,14 +151,14 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-    colorSpace = CGColorSpaceCreateDeviceGray();
+    //colorSpace = CGColorSpaceCreateDeviceGray();
+    colorSpace = CGColorSpaceCreateDeviceRGB();
     
     CGFloat cols = CGImageGetWidth(quartzImage);
     CGFloat rows = CGImageGetHeight(quartzImage);
     
-    
-    
-    cv::Mat cvMat = cv::Mat(rows, cols, CV_8UC1); // 8 bits per component, 1 channel
+    cv::Mat cvMat = cv::Mat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
+    //cv::Mat cvMat = cv::Mat(rows, cols, CV_8UC1); // 8 bits per component, 1 channel
     
     CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to backing data
                                                     cols,                      // Width of bitmap
@@ -157,7 +166,9 @@
                                                     8,                          // Bits per component
                                                     cvMat.step[0],              // Bytes per row
                                                     colorSpace,                 // Colorspace
-                                                    kCGImageAlphaNone | kCGBitmapByteOrderDefault); // Bitmap info flags
+                                                    kCGImageAlphaNoneSkipLast |
+                                                    kCGBitmapByteOrderDefault
+                                                    /*kCGImageAlphaNone | kCGBitmapByteOrderDefault*/); // Bitmap info flags
     
     CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), quartzImage);
     
@@ -172,10 +183,14 @@
     return cvMat;
 }
 
-
 - (void) setNextPipe:(ArPipe::BasePipe *)pipe
 {
-    frameSource->setNextPipe(pipe);
+    frameSource->addNextPipe(pipe);
+}
+
+- (ArPipe::BaseFrameSource*) frameSource
+{
+    return frameSource;
 }
 
 @end

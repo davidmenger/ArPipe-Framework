@@ -13,6 +13,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "Frame.h"
+#include "Shapes.h"
 
 
 namespace ArPipe {
@@ -23,13 +24,20 @@ namespace ArPipe {
       
     public:
         BaseFrameContainer(cv::Mat frameMat);
+        BaseFrameContainer(Frame* frm);
         
         ~BaseFrameContainer();
         
         Frame* getFrame();
+        Shapes* getShapes();
+        
+        BaseFrameContainer* clone();
+        
+        
         
     protected:
-        Frame *frame;
+        Frame* frame;
+        Shapes* shapes;
         
     };
     

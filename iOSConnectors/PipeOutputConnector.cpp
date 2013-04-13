@@ -10,11 +10,10 @@
 
 namespace ArPipe {
     
-    void PipeOutputConnector::pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src) {
+    void PipeOutputConnector::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src) {
         if (newFrameCallback) {
             newFrameCallback(frm);
         }
-        delete frm;
     }
     
     void PipeOutputConnector::setOnNewFrameContainerCallback(void (*callback)(BaseFrameContainer *frm))

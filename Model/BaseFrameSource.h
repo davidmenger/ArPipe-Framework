@@ -10,6 +10,8 @@
 #define __AR__BaseFrameSource__
 
 #include <iostream>
+#include <vector>
+#include "BaseFrameContainer.h"
 
 namespace ArPipe {
     
@@ -19,11 +21,13 @@ namespace ArPipe {
     
     public:
         ~BaseFrameSource();
-        void setNextPipe(BasePipe *pipe);
-        BasePipe* getNextPipe();
+        void addNextPipe(BasePipe *pipe);
+        void pushFrameConainerToNextPipes(BaseFrameContainer *container);
         
     protected:
-        BasePipe *nextPipe;
+        std::vector<BasePipe*> nextPipes;
+        
+        
         
     };
     

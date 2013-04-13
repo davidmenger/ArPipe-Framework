@@ -15,7 +15,7 @@
 using namespace cv;
 namespace ArPipe {
     
-    class Frame {
+    class Frame { 
         
     public:
         Mat frame;
@@ -23,6 +23,15 @@ namespace ArPipe {
         Frame();
         Frame(Mat frm);
         ~Frame();
+        
+        Frame* clone();
+        
+        Mat &getMat();
+        void rotate(int degrees);
+        bool isGrey();
+        
+        int getChannelCount();
+        double getDepth();
     };
         
 }

@@ -14,12 +14,18 @@
 
 @interface BaseArView : UIView {
     
+    AVCaptureVideoPreviewLayer *previewLayer;
+    CALayer *frameOutputLayer;
+    
 @protected
     GLView *glView;
     UIView *previewView;
     ArPipe::PipeOutputConnector *connector;
     Boolean showPreview;
-    AVCaptureVideoPreviewLayer *previewLayer;
+    Boolean displayLinkSupported;
+    NSTimer *animationTimer;
+    NSInteger frameRate;
+    id displayLink;
 }
 
 @property (retain) AVCaptureSession* session;
@@ -28,6 +34,10 @@
 - (void) appendAsNextPipe: (ArPipe::BaseFrameSource*) frameSource;
 - (void) showPreviewLayer;
 - (void) hidePreviewLayer;
+- (void) showFrameOutput;
+- (void) hideFrameOutput;
+- (void) drawView: (id) sender;
+
 - (ArPipe::PipeOutputConnector*) pipeConnector;
 
 @end
