@@ -22,9 +22,12 @@
 #include "./Pipes/Effects/Blur.h"
 
 #include "./Pipes/Recognizers/FindContours.h"
+#include "./Pipes/Recognizers/DetectPolygons.h"
 
 #include "./Pipes/Drawers/DrawContrours.h"
 
+#include "./Pipes/CameraApply/CameraApply.h"
 
+#include "./Pipes/MarkerIdentifiers/FiducidalMarkerIdentifier.h"
 
 #endif

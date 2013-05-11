@@ -166,17 +166,40 @@ bool _setUpped = false;
             
             //NSLog(@"bounds: [%d, %d], ", backingWidth, backingHeight);
             
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E5: Error glGetError: glError: 0x%04X", err);
+            }
+            
             glEnable(GL_DEPTH_TEST); /* enable depth testing; required for z-buffer */
-            glEnable(GL_CULL_FACE); /* enable polygon face culling */
-            glCullFace(GL_CLEAR);
+            
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E6: Error glGetError: glError: 0x%04X", err);
+            }
+            
+            //glEnable(GL_CULL_FACE); /* enable polygon face culling */
+            //glCullFace(GL_CLEAR);
+            
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E4: Error glGetError: glError: 0x%04X", err);
+            }
             
             //Make the OpenGL modelview matrix the default
             //glMatrixMode(GL_MODELVIEW);
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E3: Error glGetError: glError: 0x%04X", err);
+            }
             
             //We enable normalization
             glEnable(GL_NORMALIZE);
             
-            
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E2: Error glGetError: glError: 0x%04X", err);
+            }
             
             const GLfloat squareVertices2[] = {
                 // FRONT
@@ -211,6 +234,10 @@ bool _setUpped = false;
                 0.1f, -0.1f, -0.1f,
             };
             
+            err = glGetError();
+            if (err != GL_NO_ERROR) {
+                NSLog(@"E1: Error glGetError: glError: 0x%04X", err);
+            }
             
             
             //glDisableClientState(GL_VERTEX_ARRAY);

@@ -16,7 +16,7 @@ namespace ArPipe {
         type = cv::THRESH_BINARY_INV;
         adaptiveMethod = cv::ADAPTIVE_THRESH_MEAN_C;
         autoMax = true;
-        blockSize = 3;
+        blockSize = 9;
         adaptive = true;
     }
     
@@ -25,16 +25,17 @@ namespace ArPipe {
         Threshold();
     }
     
-    void Threshold::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool Threshold::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
         cv::Mat mat = frm->getFrame()->getMat().clone();
         if (adaptive) {
             double maxx = this->getCalcedMaxValue(frm->getFrame());
-            cv::adaptiveThreshold(mat, frm->getFrame()->getMat(), maxx, adaptiveMethod, type, blockSize, 7);
+            cv::adaptiveThreshold(mat, frm->getFrame()->getMat(), maxx, adaptiveMethod, type, blockSize, blockSize);
         } else {
             cv::threshold(mat, frm->getFrame()->getMat(), thresh, this->getCalcedMaxValue(frm->getFrame()), type);
         }
         mat.release();
+        return true;
     }
     
     double Threshold::getCalcedMaxValue(Frame* const mat)

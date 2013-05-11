@@ -11,7 +11,7 @@
 
 namespace ArPipe {
     
-    void Blur::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool Blur::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
         cv::Mat src = frm->getFrame()->getMat().clone();
         cv::Mat &dst = frm->getFrame()->getMat();
@@ -42,6 +42,7 @@ namespace ArPipe {
             }
         }
         src.release();
+        return true;
     }
     
 }

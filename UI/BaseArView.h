@@ -15,10 +15,11 @@
 @interface BaseArView : UIView {
     
     AVCaptureVideoPreviewLayer *previewLayer;
-    CALayer *frameOutputLayer;
+    
+@public
+    aruco::CameraParameters cp;
     
 @protected
-    GLView *glView;
     UIView *previewView;
     ArPipe::PipeOutputConnector *connector;
     Boolean showPreview;
@@ -26,7 +27,10 @@
     NSTimer *animationTimer;
     NSInteger frameRate;
     id displayLink;
+    
 }
+
+@property (nonatomic, readonly) GLView *glview;
 
 @property (retain) AVCaptureSession* session;
 
@@ -37,6 +41,7 @@
 - (void) showFrameOutput;
 - (void) hideFrameOutput;
 - (void) drawView: (id) sender;
+- (void) showGlView;
 
 - (ArPipe::PipeOutputConnector*) pipeConnector;
 

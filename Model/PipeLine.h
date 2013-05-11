@@ -21,11 +21,21 @@ namespace ArPipe {
         PipeLine(BaseFrameSource *previousPipe) : BasePipe(previousPipe) {}
         ~PipeLine();
         
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         PipeLine* addPipe(BasePipe* pipe);
         int getCount();
         BasePipe* operator[](int i) const { return subPipes[i]; };
         BasePipe* &operator[](int i) { return subPipes[i]; };
+        
+        BasePipe* front()
+        {
+            return subPipes.front();
+        }
+        
+        BasePipe* back()
+        {
+            return subPipes.back();
+        }
         
     protected:
         std::vector<BasePipe*> subPipes;

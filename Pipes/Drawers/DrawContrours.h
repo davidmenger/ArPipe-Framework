@@ -24,10 +24,11 @@ namespace ArPipe {
         }
         
         DrawContours() : BasePipe() {
-            thickness = 2;
-            lineType = 8;
-            maxLevel = INT_MAX;
-            color = CV_RGB(255, 255, 0);
+            thickness = 1;
+            lineType = 4; //4, 8
+            maxLevel = 1;
+            color = cv::Scalar(255, 0, 0, 255);
+            
         }
         
         static DrawContours* init() {
@@ -41,7 +42,7 @@ namespace ArPipe {
          }*/
         
         
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
     protected:
         int thickness;

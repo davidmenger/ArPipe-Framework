@@ -32,7 +32,7 @@ namespace ArPipe {
             return Blur::init()->setDepth(depth);
         }
         
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
         Blur* setType(int type)
         {

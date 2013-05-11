@@ -30,6 +30,8 @@ namespace ArPipe {
             return new FindContours();
         }
         
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        
         /*FindContours* set()
         {
             
@@ -73,7 +75,7 @@ namespace ArPipe {
         }
         
         
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+       
     
     protected:
         int mode;

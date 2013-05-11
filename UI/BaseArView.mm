@@ -12,60 +12,139 @@
 @implementation BaseArView
 
 @synthesize session;
+@synthesize glview = _glview;
 
-volatile CGImageRef cgImageRef;
+- (GLView*) glview
+{
+    if (_glview == nil) {
+        _glview = [[GLView alloc] initWithFrame:self.frame];
+        [self addSubview:_glview];
+        [_glview setHidden:YES];
+    }
+    return _glview;
+}
+
+
 volatile Boolean hasNewFrame;
+volatile Boolean processingFrame;
+UIImage *img;
+NSData *data;
+UIImageView* frameOutputView;
+id slf;
 Boolean shownFrameOutput;
+Boolean shownGlView;
 
 void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
 {
-    if (shownFrameOutput && !hasNewFrame) {
+    if (shownFrameOutput && !hasNewFrame && !processingFrame) {
+        processingFrame = TRUE;
         
-        cv::Mat mat = frm->getFrame()->getMat();
-        NSData *data = [NSData dataWithBytes:mat.data length: mat.elemSize()*mat.total()];
-        CGColorSpaceRef colorSpace;
-        
-        if (frm->getFrame()->getMat().elemSize() == 1) {
-            colorSpace = CGColorSpaceCreateDeviceGray();
-        } else {
-            colorSpace = CGColorSpaceCreateDeviceRGB();
+        if (shownFrameOutput) {
+            cv::Mat mat = frm->getFrame()->getMat();
+            
+            if (data) {
+                [data release];
+                data = nil;
+            }
+            data = [[NSData alloc] initWithBytes:mat.data length: mat.elemSize()*mat.total()];
+            
+            CGColorSpaceRef colorSpace;
+            
+            if (frm->getFrame()->getMat().elemSize() == 1) {
+                colorSpace = CGColorSpaceCreateDeviceGray();
+            } else {
+                colorSpace = CGColorSpaceCreateDeviceRGB();
+            }
+            
+            //CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+            CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef) data);
+            //CGImageRelease(cgImageRef);
+            // Creating CGImage from cv::Mat
+            CGImageRef cgImageRef =  CGImageCreate(mat.cols, mat.rows,                                 //height
+                                                8,                                          //bits per component
+                                                8 * mat.elemSize(),                       //bits per pixel
+                                                mat.step[0],                            //bytesPerRow
+                                                colorSpace,                                 //colorspace
+                                                kCGImageAlphaNone|kCGBitmapByteOrderDefault,// bitmap info
+                                                provider,                                   //CGDataProviderRef
+                                                NULL,                                       //decode
+                                                false,                                      //should interpolate
+                                                kCGRenderingIntentDefault                   //intent
+                                                );
+            
+            if (img) {
+                [img release];
+                img = nil;
+            }
+            
+            img = [[UIImage alloc] initWithCGImage:cgImageRef];
+            
+            
+            CGImageRelease(cgImageRef);
+            CGDataProviderRelease(provider);
+            CGColorSpaceRelease(colorSpace);
+            
+            
+            
+            processingFrame = FALSE;
+            hasNewFrame = TRUE;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //[frameOutputView setImage:img];
+                //[img release];
+                [slf setNeedsDisplay];
+            });
+            
+            
+            if (shownGlView) {
+                
+                //dispatch_async(dispatch_get_main_queue(), ^{
+                    BaseArView *arv = (BaseArView*) slf;
+                    
+                    for (unsigned int i = 0; i < frm->getShapes()->getMarkers().size(); i++) {
+                        
+                        double proj_matrix[16];
+                        arv->cp.glGetProjectionMatrix(frm->getFrame()->getMat().size(), frm->getFrame()->getMat().size(), proj_matrix, 0.1, 100.0);
+                        [arv.glview setProjectionMatrix:proj_matrix];
+                        
+                        
+                        double model_matrix[16];
+                        frm->getShapes()->getMarkers()[i].glGetModelViewMatrix(model_matrix);
+                        [arv.glview setModelViewMatrix:model_matrix];
+                    }
+                
+                //});
+                
+                
+            }
         }
         
-        //CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
-        CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
         
-        // Creating CGImage from cv::Mat
-        cgImageRef =  CGImageCreate(mat.cols, mat.rows,                                 //height
-                                            8,                                          //bits per component
-                                            8 * mat.elemSize(),                       //bits per pixel
-                                            mat.step[0],                            //bytesPerRow
-                                            colorSpace,                                 //colorspace
-                                            kCGImageAlphaNone|kCGBitmapByteOrderDefault,// bitmap info
-                                            provider,                                   //CGDataProviderRef
-                                            NULL,                                       //decode
-                                            false,                                      //should interpolate
-                                            kCGRenderingIntentDefault                   //intent
-                                            );
         
-        CGDataProviderRelease(provider);
-        CGColorSpaceRelease(colorSpace);
-        hasNewFrame = TRUE;
+        //processingFrame = FALSE;
+    }
+}
+
+- (void) drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    if (hasNewFrame && shownFrameOutput && !processingFrame) {
+        processingFrame = TRUE;
+        //CGImageRef ref = (CGImageRef) frameOutputLayer.contents;
+        UIImage *tmp = [img copy];
+        [frameOutputView setImage: tmp];
+        [tmp release];
+        
+        
+        //[img release];
+        hasNewFrame = FALSE;
+        processingFrame = false;
     }
 }
 
 
-
 - (void) drawView: (id) sender
 {
-        if (hasNewFrame && shownFrameOutput) {
-            //CGImageRef ref = (CGImageRef) frameOutputLayer.contents;
-            [frameOutputLayer setContents: (id) cgImageRef];
-            CFRelease(cgImageRef);
-            hasNewFrame = FALSE;
-        } else if (hasNewFrame) {
-            CFRelease(cgImageRef);
-            hasNewFrame = FALSE;
-        }
     
 }
 
@@ -74,13 +153,16 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
     self = [super initWithFrame:frame];
     if (self)
     {
-        
         connector = new ArPipe::PipeOutputConnector();
         connector->setOnNewFrameContainerCallback(&pushNewFrameContainer);
         
         displayLinkSupported = FALSE;
         frameRate = 1;
         hasNewFrame = FALSE;
+        processingFrame = FALSE;
+        slf = self;
+        img = nil;
+        data = nil;
         
         // A system version of 3.1 or greater is required to use CADisplayLink. The NSTimer
 		// class is used as fallback when it isn't available.
@@ -144,22 +226,29 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
     return connector;
 }
 
+- (void) showGlView
+{
+    if (!shownGlView) {
+        shownGlView = TRUE;
+        [[self glview] setHidden:NO];
+    }
+}
+
 - (void) showFrameOutput
 {
     if (!shownFrameOutput) {
-        if (!frameOutputLayer) {
-            frameOutputLayer = [[CALayer alloc] init];
+        if (!frameOutputView) {
+            frameOutputView = [[UIImageView alloc] init];
             CGRect bounds = [self layer].bounds;
-            [frameOutputLayer setBounds:bounds];
+            [frameOutputView setBounds:bounds];
             
-            [frameOutputLayer setFrame:[self frame]];
-            [frameOutputLayer setContentsGravity: kCAGravityResizeAspectFill];
+            [frameOutputView setFrame:[self frame]];
             
             
-            [[self layer] addSublayer:frameOutputLayer];
             
-            UIImage* img = [UIImage imageNamed:@"original-coffee-88.jpg"];
-            [frameOutputLayer setContents: (id) img.CGImage];
+            [self addSubview:frameOutputView];
+            
+            [frameOutputView setImage: [UIImage imageNamed:@"original-coffee-88.jpg"]];
         }
         
         if (displayLinkSupported)
@@ -173,19 +262,19 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
             [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 		}
 		else
-			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 60.0) * frameRate) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
+			animationTimer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)((1.0 / 30.0) * frameRate) target:self selector:@selector(drawView:) userInfo:nil repeats:TRUE];
 		
         
-        [frameOutputLayer setHidden:NO];
+        [frameOutputView setHidden:NO];
         shownFrameOutput = YES;
     }
 }
 
 - (void) hideFrameOutput
 {
-    if (shownFrameOutput && frameOutputLayer)
+    if (shownFrameOutput && frameOutputView)
     {
-        [frameOutputLayer setHidden:YES];
+        [frameOutputView setHidden:YES];
         shownFrameOutput = FALSE;
     }
 }

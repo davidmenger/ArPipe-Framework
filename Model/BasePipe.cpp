@@ -10,25 +10,31 @@
 
 namespace ArPipe {
     
-    BasePipe::BasePipe()
-    {
-        
-    }
-    
     BasePipe::BasePipe(BaseFrameSource *previousPipe)
     {
-        BasePipe::BasePipe();
         previousPipe->addNextPipe(this);
     }
     
-    void BasePipe::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src)
+    void BasePipe::pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src)
     {
-        // override this method
+        containerToPush = frm;
+        if (this->processFrameContainer(frm, src)) {
+            this->pushFrameConainerToNextPipes(containerToPush);
+        } else if (this->canDestroyUnprocessedContainer(frm, src)) {
+            delete frm;
+        }
+        containerToPush = NULL;
     }
-
-    void BasePipe::pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *src) {
-        this->processFrameContainer(frm, src);
-        this->pushFrameConainerToNextPipes(frm);
+    
+    bool BasePipe::canDestroyUnprocessedContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    {
+        return false;
+    }
+    
+    template< class T>
+        T BasePipe::init()
+    {
+        return new T();
     }
     
 }

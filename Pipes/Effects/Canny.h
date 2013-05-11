@@ -25,7 +25,7 @@ namespace ArPipe {
         static Canny* init() {
             return new Canny();
         }
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
         Canny* setThresholds(double lower, double upper)
         {

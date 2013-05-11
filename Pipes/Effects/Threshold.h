@@ -32,7 +32,7 @@ namespace ArPipe {
            return new Threshold();
        }
        
-       void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+       bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
        
        void setType(int typeConst) {
            type = typeConst;
@@ -63,10 +63,8 @@ namespace ArPipe {
            return this;
        }
        
-       Threshold* setAdaptive(bool adaptive) {
-           if (adaptive && type != cv::THRESH_BINARY_INV && type != cv::THRESH_BINARY) {
-               type = cv::THRESH_BINARY_INV;
-           }
+       Threshold* setAdaptive(bool inverted) {
+           type = inverted ? cv::THRESH_BINARY_INV : cv::THRESH_BINARY;
            adaptive = true;
            return this;
        }

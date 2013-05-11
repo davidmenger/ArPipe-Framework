@@ -21,8 +21,8 @@ namespace ArPipe {
     
     public:
         ~BaseFrameSource();
-        void addNextPipe(BasePipe *pipe);
-        void pushFrameConainerToNextPipes(BaseFrameContainer *container);
+        BasePipe* addNextPipe(BasePipe *pipe);
+        void pushFrameConainerToNextPipes(BaseFrameContainer *container, bool dontDeleteFrame = false);
         
     protected:
         std::vector<BasePipe*> nextPipes;

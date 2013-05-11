@@ -12,13 +12,14 @@
 #include <iostream>
 #include <vector>
 #include <opencv2/opencv.hpp>
+#include "Marker.h"
 
 namespace ArPipe {
     
     class Shapes
     {
     public:
-        Shapes() : contours(), hierarchy(){
+        Shapes() : contours(), hierarchy(), markers() {
             
         }
         
@@ -29,9 +30,19 @@ namespace ArPipe {
         std::vector<cv::Vec4i> &getHierarchy() {
             return hierarchy;
         }
+        
+        std::vector<Marker> &getMarkers() {
+            return markers;
+        }
+        
+        void setMarkers(std::vector<Marker> newMarkers) {
+            markers = newMarkers;
+        }
+        
     protected:
         std::vector<std::vector<cv::Point> > contours;
         std::vector<cv::Vec4i> hierarchy;
+        std::vector<Marker> markers;
         
     };
     

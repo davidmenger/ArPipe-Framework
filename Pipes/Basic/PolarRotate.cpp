@@ -10,12 +10,8 @@
 
 namespace ArPipe {
     
-    PolarRotate::PolarRotate(BaseFrameSource *previousPipe, int degrees) : BasePipe(previousPipe)
-    {
-        this->setDeg(degrees);
-    }
     
-    void PolarRotate::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool PolarRotate::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
         cv::Mat &mat = frm->getFrame()->getMat();
         int angle = deg%360;
@@ -34,8 +30,7 @@ namespace ArPipe {
         } else {
             // implement other agles rotate
         }
-        
-        
+        return true;
     }
     
 }

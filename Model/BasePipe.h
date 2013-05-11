@@ -20,13 +20,18 @@ namespace ArPipe {
     class BasePipe : public BaseFrameSource {
   
     public:
-        BasePipe();
         BasePipe(BaseFrameSource *previousPipe);
+        BasePipe(){};
+        virtual ~BasePipe(){};
         
         void pushNewFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
-        virtual void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        virtual bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)=0;
         
-    
+        template< class T>
+            static T init();
+    protected:
+        virtual bool canDestroyUnprocessedContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        BaseFrameContainer *containerToPush;
     
     };
     

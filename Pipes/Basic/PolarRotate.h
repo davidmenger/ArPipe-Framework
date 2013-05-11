@@ -21,12 +21,12 @@ namespace ArPipe {
         int deg;
         
     public:
-        PolarRotate(BaseFrameSource *previousPipe, int degrees);
-        PolarRotate() : BasePipe() {}
+        PolarRotate(int degrees) : BasePipe() {
+            this->setDeg(degrees);
+        }
         
         static PolarRotate* init(int degrees) {
-            PolarRotate* obj = new PolarRotate();
-            obj->setDeg(degrees);
+            PolarRotate* obj = new PolarRotate(degrees);
             return obj;
         }
         
@@ -39,7 +39,7 @@ namespace ArPipe {
             return this;
         }
         
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
     };
     
 }

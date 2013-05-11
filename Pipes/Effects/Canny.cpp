@@ -12,16 +12,16 @@
 namespace ArPipe {
     
     
-    void Canny::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource) {
+    bool Canny::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource) {
         
         cv::Canny(frm->getFrame()->getMat(), frm->getFrame()->getMat(), this->getLowerThreshold(frm->getFrame()), this->getUpperThreshold(frm->getFrame()));
-        
+        return true;
     }
     
     double Canny::getLowerThreshold(Frame* frm)
     {
         if (autoThresholds) {
-            return frm->getDepth() * 0.04;
+            return frm->getDepth() * 0.06;
         } else {
             return lowerThreshold;
         }

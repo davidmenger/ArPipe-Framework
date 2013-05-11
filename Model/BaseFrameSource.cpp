@@ -18,17 +18,20 @@ namespace ArPipe {
     
     }
     
-    void BaseFrameSource::addNextPipe(BasePipe *pipe)
+    BasePipe* BaseFrameSource::addNextPipe(BasePipe *pipe)
     {
         nextPipes.push_back(pipe);
+        return pipe;
     }
     
-    void BaseFrameSource::pushFrameConainerToNextPipes(BaseFrameContainer *container)
+    void BaseFrameSource::pushFrameConainerToNextPipes(BaseFrameContainer *container, bool alwaysClone)
     {
         if (nextPipes.size() == 0) {
-            delete container;
+            if (!alwaysClone) {
+                delete container;
+            }
         } else {
-            BaseFrameContainer *tmp = container;
+            BaseFrameContainer *tmp = alwaysClone ? container->clone() : container;
             for(std::vector<BasePipe*>::iterator iterator = nextPipes.begin(); iterator != nextPipes.end(); ++iterator) {
                 (*iterator)->pushNewFrameContainer(tmp, this);
                 if ((iterator+1) != nextPipes.end()) {

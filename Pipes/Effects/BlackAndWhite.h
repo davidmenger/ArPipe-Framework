@@ -23,7 +23,7 @@ namespace ArPipe {
         static BlackAndWhite* init() {
             return new BlackAndWhite();
         }
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
         BlackAndWhite* toColor()
         {

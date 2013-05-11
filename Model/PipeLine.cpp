@@ -23,13 +23,15 @@ namespace ArPipe {
         
     }
     
-    void PipeLine::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool PipeLine::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
-        BasePipe* src = this;
+        BaseFrameSource* src = frameSource;
         for (std::vector<BasePipe*>::iterator i = subPipes.begin(); i != subPipes.end(); ++i) {
             (*i)->processFrameContainer(frm, src);
+            (*i)->pushFrameConainerToNextPipes(frm, true);
             src = (*i);
         }
+        return true;
     }
     
     PipeLine* PipeLine::addPipe(BasePipe* pipe)

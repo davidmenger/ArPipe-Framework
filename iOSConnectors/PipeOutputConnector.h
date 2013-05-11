@@ -17,8 +17,9 @@ namespace ArPipe {
     class PipeOutputConnector : public BasePipeOutput
     {
     public:
+        PipeOutputConnector(){};
         void setOnNewFrameContainerCallback(void (*callback)(BaseFrameContainer *frm));
-        void processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
+        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
     protected:
         void (*newFrameCallback)(BaseFrameContainer *frm);

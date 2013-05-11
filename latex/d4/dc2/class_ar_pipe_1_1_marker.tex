@@ -1,0 +1,159 @@
+\hypertarget{class_ar_pipe_1_1_marker}{\section{Dokumentace třídy Ar\-Pipe\-:\-:Marker}
+\label{d4/dc2/class_ar_pipe_1_1_marker}\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}}
+}
+
+
+This class represents a marker. It is a vector of the fours corners ot the marker.  
+
+
+
+
+{\ttfamily \#include $<$Marker.\-h$>$}
+
+Diagram dědičnosti pro třídu Ar\-Pipe\-:\-:Marker\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d4/dc2/class_ar_pipe_1_1_marker}
+\end{center}
+\end{figure}
+\subsection*{Veřejné metody}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a3d32fab3fb0d1e3f1624fa1fc39e99b2}{{\bfseries Marker} (const \hyperlink{class_ar_pipe_1_1_marker}{Marker} \&M)}\label{d4/dc2/class_ar_pipe_1_1_marker_a3d32fab3fb0d1e3f1624fa1fc39e99b2}
+
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_adf46f98ed52fa2d62d82a5558b0df012}{{\bfseries Marker} (const std\-::vector$<$ cv\-::\-Point2f $>$ \&corners, int \-\_\-id=-\/1)}\label{d4/dc2/class_ar_pipe_1_1_marker_adf46f98ed52fa2d62d82a5558b0df012}
+
+\item 
+bool \hyperlink{class_ar_pipe_1_1_marker_a5b2c8cec27db5cf9b26bb356542e8030}{is\-Valid} () const 
+\item 
+void \hyperlink{class_ar_pipe_1_1_marker_a7f9ac55816ba4e1ae1a991124042b648}{draw} (cv\-::\-Mat \&in, cv\-::\-Scalar color, int line\-Width=1, bool write\-Id=true) const 
+\item 
+void \hyperlink{class_ar_pipe_1_1_marker_adcb88ee0c2c59ceeb5ec706c18bae2b3}{calculate\-Extrinsics} (float marker\-Size, const \hyperlink{classaruco_1_1_camera_parameters}{aruco\-::\-Camera\-Parameters} \&C\-P)  throw (cv\-::\-Exception)
+\item 
+void \hyperlink{class_ar_pipe_1_1_marker_a2e6a3942e1e41b99b9051e654889fb85}{calculate\-Extrinsics} (float marker\-Size, cv\-::\-Mat Camera\-Matrix, cv\-::\-Mat Distorsion=cv\-::\-Mat())  throw (cv\-::\-Exception)
+\item 
+void \hyperlink{class_ar_pipe_1_1_marker_a5850ed86671d366d640d1c98b5dc4176}{gl\-Get\-Model\-View\-Matrix} (double modelview\-\_\-matrix\mbox{[}16\mbox{]})  throw (cv\-::\-Exception)
+\item 
+cv\-::\-Point2f \hyperlink{class_ar_pipe_1_1_marker_ae3529020574d565123af96b299a2dabc}{get\-Center} () const 
+\item 
+float \hyperlink{class_ar_pipe_1_1_marker_a067e6e118c4c310c104a039ed977bab5}{get\-Perimeter} () const 
+\item 
+float \hyperlink{class_ar_pipe_1_1_marker_ad7fc8a998dd21668d1f0bacf18c320b6}{get\-Area} () const 
+\end{DoxyCompactItemize}
+\subsection*{Veřejné atributy}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a33f4be78f79f38e54d9b657ea3b12a72}{int {\bfseries id}}\label{d4/dc2/class_ar_pipe_1_1_marker_a33f4be78f79f38e54d9b657ea3b12a72}
+
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a4135dc060acf0aadee9633926d870faf}{float {\bfseries ssize}}\label{d4/dc2/class_ar_pipe_1_1_marker_a4135dc060acf0aadee9633926d870faf}
+
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a4aff6ef505f82a731320ed11ef25ca32}{cv\-::\-Mat {\bfseries Rvec}}\label{d4/dc2/class_ar_pipe_1_1_marker_a4aff6ef505f82a731320ed11ef25ca32}
+
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_aa8c712e71d4b0ac13d99c3bdb028fa81}{cv\-::\-Mat {\bfseries Tvec}}\label{d4/dc2/class_ar_pipe_1_1_marker_aa8c712e71d4b0ac13d99c3bdb028fa81}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a19de3d60e4cd6ddaf3df606158049a0c}{bool {\bfseries operator$<$} (const \hyperlink{class_ar_pipe_1_1_marker}{Marker} \&M1, const \hyperlink{class_ar_pipe_1_1_marker}{Marker} \&M2)}\label{d4/dc2/class_ar_pipe_1_1_marker_a19de3d60e4cd6ddaf3df606158049a0c}
+
+\item 
+\hypertarget{class_ar_pipe_1_1_marker_a191f20f61955983c0475ae4b141657ef}{ostream \& {\bfseries operator$<$$<$} (ostream \&str, const \hyperlink{class_ar_pipe_1_1_marker}{Marker} \&M)}\label{d4/dc2/class_ar_pipe_1_1_marker_a191f20f61955983c0475ae4b141657ef}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailní popis}
+This class represents a marker. It is a vector of the fours corners ot the marker. 
+
+
+
+\subsection{Dokumentace k metodám}
+\hypertarget{class_ar_pipe_1_1_marker_adcb88ee0c2c59ceeb5ec706c18bae2b3}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!calculate\-Extrinsics@{calculate\-Extrinsics}}
+\index{calculate\-Extrinsics@{calculate\-Extrinsics}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{calculate\-Extrinsics}]{\setlength{\rightskip}{0pt plus 5cm}void Ar\-Pipe\-::\-Marker\-::calculate\-Extrinsics (
+\begin{DoxyParamCaption}
+\item[{float}]{marker\-Size, }
+\item[{const {\bf aruco\-::\-Camera\-Parameters} \&}]{C\-P}
+\end{DoxyParamCaption}
+)  throw (cv\-::\-Exception)}}\label{d4/dc2/class_ar_pipe_1_1_marker_adcb88ee0c2c59ceeb5ec706c18bae2b3}
+Calculates the extrinsics (Rvec and Tvec) of the marker with respect to the camera 
+\begin{DoxyParams}{Parametry}
+{\em marker\-Size} & size of the marker side expressed in meters \\
+\hline
+{\em C\-P} & parmeters of the camera \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ar_pipe_1_1_marker_a2e6a3942e1e41b99b9051e654889fb85}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!calculate\-Extrinsics@{calculate\-Extrinsics}}
+\index{calculate\-Extrinsics@{calculate\-Extrinsics}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{calculate\-Extrinsics}]{\setlength{\rightskip}{0pt plus 5cm}void Ar\-Pipe\-::\-Marker\-::calculate\-Extrinsics (
+\begin{DoxyParamCaption}
+\item[{float}]{marker\-Size, }
+\item[{cv\-::\-Mat}]{Camera\-Matrix, }
+\item[{cv\-::\-Mat}]{Distorsion = {\ttfamily cv\-:\-:Mat()}}
+\end{DoxyParamCaption}
+)  throw (cv\-::\-Exception)}}\label{d4/dc2/class_ar_pipe_1_1_marker_a2e6a3942e1e41b99b9051e654889fb85}
+Calculates the extrinsics (Rvec and Tvec) of the marker with respect to the camera 
+\begin{DoxyParams}{Parametry}
+{\em marker\-Size} & size of the marker side expressed in meters \\
+\hline
+{\em Camera\-Matrix} & matrix with camera parameters (fx,fy,cx,cy) \\
+\hline
+{\em Distorsion} & matrix with distorsion parameters (k1,k2,p1,p2) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_ar_pipe_1_1_marker_a7f9ac55816ba4e1ae1a991124042b648}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!draw@{draw}}
+\index{draw@{draw}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{draw}]{\setlength{\rightskip}{0pt plus 5cm}void Ar\-Pipe\-::\-Marker\-::draw (
+\begin{DoxyParamCaption}
+\item[{cv\-::\-Mat \&}]{in, }
+\item[{cv\-::\-Scalar}]{color, }
+\item[{int}]{line\-Width = {\ttfamily 1}, }
+\item[{bool}]{write\-Id = {\ttfamily true}}
+\end{DoxyParamCaption}
+) const}}\label{d4/dc2/class_ar_pipe_1_1_marker_a7f9ac55816ba4e1ae1a991124042b648}
+Draws this marker in the input image \hypertarget{class_ar_pipe_1_1_marker_ad7fc8a998dd21668d1f0bacf18c320b6}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!get\-Area@{get\-Area}}
+\index{get\-Area@{get\-Area}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{get\-Area}]{\setlength{\rightskip}{0pt plus 5cm}float Ar\-Pipe\-::\-Marker\-::get\-Area (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{d4/dc2/class_ar_pipe_1_1_marker_ad7fc8a998dd21668d1f0bacf18c320b6}
+Returns the area \hypertarget{class_ar_pipe_1_1_marker_ae3529020574d565123af96b299a2dabc}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!get\-Center@{get\-Center}}
+\index{get\-Center@{get\-Center}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{get\-Center}]{\setlength{\rightskip}{0pt plus 5cm}cv\-::\-Point2f Ar\-Pipe\-::\-Marker\-::get\-Center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{d4/dc2/class_ar_pipe_1_1_marker_ae3529020574d565123af96b299a2dabc}
+Returns the centroid of the marker \hypertarget{class_ar_pipe_1_1_marker_a067e6e118c4c310c104a039ed977bab5}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!get\-Perimeter@{get\-Perimeter}}
+\index{get\-Perimeter@{get\-Perimeter}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{get\-Perimeter}]{\setlength{\rightskip}{0pt plus 5cm}float Ar\-Pipe\-::\-Marker\-::get\-Perimeter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{d4/dc2/class_ar_pipe_1_1_marker_a067e6e118c4c310c104a039ed977bab5}
+Returns the perimeter of the marker \hypertarget{class_ar_pipe_1_1_marker_a5850ed86671d366d640d1c98b5dc4176}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!gl\-Get\-Model\-View\-Matrix@{gl\-Get\-Model\-View\-Matrix}}
+\index{gl\-Get\-Model\-View\-Matrix@{gl\-Get\-Model\-View\-Matrix}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{gl\-Get\-Model\-View\-Matrix}]{\setlength{\rightskip}{0pt plus 5cm}void Ar\-Pipe\-::\-Marker\-::gl\-Get\-Model\-View\-Matrix (
+\begin{DoxyParamCaption}
+\item[{double}]{modelview\-\_\-matrix\mbox{[}16\mbox{]}}
+\end{DoxyParamCaption}
+)  throw (cv\-::\-Exception)}}\label{d4/dc2/class_ar_pipe_1_1_marker_a5850ed86671d366d640d1c98b5dc4176}
+Given the extrinsic camera parameters returns the G\-L\-\_\-\-M\-O\-D\-E\-L\-V\-I\-E\-W matrix for opengl. Setting this matrix, the reference coordinate system will be set in this marker \hypertarget{class_ar_pipe_1_1_marker_a5b2c8cec27db5cf9b26bb356542e8030}{\index{Ar\-Pipe\-::\-Marker@{Ar\-Pipe\-::\-Marker}!is\-Valid@{is\-Valid}}
+\index{is\-Valid@{is\-Valid}!ArPipe::Marker@{Ar\-Pipe\-::\-Marker}}
+\subsubsection[{is\-Valid}]{\setlength{\rightskip}{0pt plus 5cm}bool Ar\-Pipe\-::\-Marker\-::is\-Valid (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{d4/dc2/class_ar_pipe_1_1_marker_a5b2c8cec27db5cf9b26bb356542e8030}
+Indicates if this object is valid 
+
+Dokumentace pro tuto třídu byla generována z následujících souborů\-:\begin{DoxyCompactItemize}
+\item 
+Model/Marker.\-h\item 
+Model/Marker.\-cpp\end{DoxyCompactItemize}

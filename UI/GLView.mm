@@ -22,9 +22,9 @@
 
 
 //The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
-- (id) initWithCoder:(NSCoder*)coder
+- (id) initWithFrame:(CGRect)frame
 {
-    if ((self = [super initWithCoder:coder]))
+    if ((self = [super initWithFrame:frame]))
 	{
         // Get the layer
         CAEAGLLayer *eaglLayer = (CAEAGLLayer *)self.layer;
@@ -64,6 +64,8 @@
 		NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
 		if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
 			displayLinkSupported = TRUE;
+        
+        [self setOpaque:NO];
     }
 	//[self setBackgroundColor:[UIColor redColor]];
     return self;

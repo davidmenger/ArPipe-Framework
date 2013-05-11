@@ -11,7 +11,7 @@
 
 namespace ArPipe {
     
-    void FindContours::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool FindContours::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
         cv::Mat input = frm->getFrame()->getMat().clone();
         Shapes* shapes = frm->getShapes();
@@ -20,6 +20,7 @@ namespace ArPipe {
         cv::findContours( input, shapes->getContours(), shapes->getHierarchy(), mode, method );
         
         input.release();
+        return true;
     }
     
 }

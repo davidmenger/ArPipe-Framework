@@ -11,11 +11,11 @@
 
 namespace ArPipe {
     
-    void BlackAndWhite::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    bool BlackAndWhite::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
     {
         if (frm->getFrame()->getChannelCount() > 1 && !color) {
             cv::Mat &mat = frm->getFrame()->getMat();
-            cv::cvtColor(mat, mat, color ? CV_GRAY2BGR : CV_BGR2GRAY);
+            cv::cvtColor(mat, mat, color ? CV_GRAY2RGB : CV_RGB2GRAY);
         } else if (frm->getFrame()->getChannelCount() < 3 && color) {
             // create 32bit image from 8bit
             //cv::Mat &grey = frm->getFrame()->getMat();
@@ -31,6 +31,7 @@ namespace ArPipe {
             
             //grey.release();
         }
+        return true;
     }
     
 }
