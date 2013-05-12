@@ -12,7 +12,32 @@ Framework is using OpenCV2 library. For running applications based on ArPipe fra
 
 ## Introduction
 
-Main idea of framework is based on connecting image processing blocks (Pipes) into PipeLines, which creates tree structure. Each Pipes uses OpenCV functions for processing image.
+Main idea of framework is based on connecting image processing blocks (Pipes) into PipeLines, which creates tree structure. Each Pipes uses OpenCV functions for processing image. Pipes can be aggregated in PipeLine and every PipeLine behaves as single Pipe object, because PipeLine is extension of BasePipe.
 
-[Principle](principle.png)
+![Principle](principle.png)
+
+Every single Pipe is attached to its frame source by reference, and frame source has responsibility to pass every frame to next Pipes. 
+
+## Connecting pipes
+
+To attach Pipe to frame source there is `addNextPipe(BasePipe* pipe)` method on every BaseFrameSource object and returns inserted pipe object to provide Fluent Interface. One BaseFrameSource can have unlimited number of following Pipes. 
+
+	CameraFrameSource *frameSource = [[CameraFrameSource alloc] init];
+    [frameSource frameSource]->addNextPipe(ArPipe::PolarRotate::init(90))
+    						->addNextPipe(ArPipe::BlackAndWhite::init());
+
+Pipes can be aggregated also into pipelines, which can not be branched, but has simplified interface.
+
+	ArPipe::PipeLine* pipeline = new ArPipe::PipeLine([frameSource frameSource]);
+    
+    pipeline->addPipe(ArPipe::PolarRotate::init(90));
+    pipeline->addPipe(ArPipe::BlackAndWhite::init());
+    
+## Creating own Pipes
+
+### Creating Frame Sources
+
+Each frame source must be subclass of `BaseFrameSource` class. For example, when FrameSource receives new frame from camera, it will call `pushFrameConainerToNextPipes(BaseFrameContainer *container)` method with new instance of BaseFrameContainer. Calling this method, container will be passed to following pipes.
+
+### Creating camera data processing Pipes
 
