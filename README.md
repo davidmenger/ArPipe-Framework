@@ -41,3 +41,18 @@ Each frame source must be subclass of `BaseFrameSource` class. For example, when
 
 ### Creating camera data processing Pipes
 
+Every Pipe object should be subclass of `BasePipe`. The only required step to prepare working pipe is overriding `processFrameContainer` method and implement data processing procedure in this method.
+
+But for better experience and reusability of created Pipes, there are some recommendations for creating subclasses of `BasePipe`. 
+
+1. Pipe object should contain static `init` method as instance factory
+2. Each property of Pipe object should be set by setter, which returns reference to self instance to provide Fluent Interface.
+3. Pipe object should contain default property settings
+
+## Using framework
+
+Currently, ArPipe framework has sandbox and connectors for use on iOs platform, but its prepared to work on every platform, which can run OpenCV framework.
+
+For using ArPipe on iOS try download [ArPipe iOs Sandbox](https://github.com/megii/ArPipe-iOs-sandbox) and run sample code.
+
+
