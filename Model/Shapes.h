@@ -39,6 +39,16 @@ namespace ArPipe {
             markers = newMarkers;
         }
         
+        void setHierarchy(std::vector<cv::Vec4i> newHierarchy) {
+            hierarchy = newHierarchy;
+        }
+        
+        void setContours(std::vector<std::vector<cv::Point> > newContours) {
+            contours = newContours;
+        }
+        
+        Shapes* clone();
+        
     protected:
         std::vector<std::vector<cv::Point> > contours;
         std::vector<cv::Vec4i> hierarchy;

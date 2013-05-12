@@ -18,8 +18,10 @@
 
 namespace ArPipe {
     
-    
-    
+    //! Basic Frame and Shapes container
+    /**
+     * This is Allowed to replace.
+     */
     class BaseFrameContainer {
       
     public:
@@ -33,7 +35,17 @@ namespace ArPipe {
         
         BaseFrameContainer* clone();
         
+        /**
+         * Replaces current Frame with new. The old one will be deallocated. 
+         * @param frameReplacement
+         */
+        void setFrame(Frame* frameReplacement);
         
+        /**
+         * Replaces current shapes object with new. The old one will be deallocated. 
+         * @param shapesReplacement new Shapes object to replace current
+         */
+        void setShapes(Shapes* shapesReplacement);
         
     protected:
         Frame* frame;

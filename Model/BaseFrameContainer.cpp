@@ -48,4 +48,19 @@ namespace ArPipe {
         return shapes;
     }
     
+    void BaseFrameContainer::setFrame(Frame* frameReplacement)
+    {
+        if (frame!=NULL) {
+            delete frame;
+        }
+        frame = frameReplacement->clone();
+    }
+    void BaseFrameContainer::setShapes(Shapes* shapesReplacement)
+    {
+        if (shapes!=NULL) {
+            delete shapes;
+        }
+        shapes = shapesReplacement->clone();
+    }
+    
 }

@@ -11,20 +11,9 @@
 using namespace cv;
 namespace ArPipe {
     
-    bool SquareMarkerDetector::processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource)
+    void SquareMarkerDetector::processFrameAndShapes()
     {
-        if (frameSource == frameSourcePipe) {
-            frame = frm;
-        } else if (frameSource == shapesSourcePipe) {
-            shapes = frm;
-        }
-        if (frame != NULL && shapes != NULL) {
-            this->doTheDetection();
-            return true;
-        } else {
-            return false;
-        }
-        
+        this->doTheDetection();
     }
     
     void SquareMarkerDetector::doTheDetection()
@@ -82,10 +71,7 @@ namespace ArPipe {
         //remove the markers marker
         removeElements(detectedMarkers, toRemove);
         
-        frame->getShapes()->setMarkers(detectedMarkers);
-        containerToPush = frame;
-        delete this->shapes;
-        this->shapes = NULL;
+        shapes->setMarkers(detectedMarkers);
     }
     
     

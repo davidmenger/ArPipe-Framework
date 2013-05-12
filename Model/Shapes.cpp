@@ -10,5 +10,13 @@
 
 namespace ArPipe {
     
+    Shapes* Shapes::clone()
+    {
+        Shapes *newShapes = new Shapes();
+        newShapes->setMarkers(markers);
+        newShapes->setHierarchy(hierarchy);
+        newShapes->setContours(contours);
+        return newShapes;
+    }
     
 }

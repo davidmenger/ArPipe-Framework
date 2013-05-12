@@ -10,56 +10,37 @@
 #define __AR__SquareMarkerDetector__
 
 #include <iostream>
-#include "BasePipe.h"
+#include "PipeMerge.h"
 
 namespace ArPipe {
     
     enum CornerRefinementMethod {NONE,HARRIS,SUBPIX};
     
-    class SquareMarkerDetector : public BasePipe
+    class SquareMarkerDetector : public PipeMerge
     {
     public:
         
-        SquareMarkerDetector() : BasePipe() {
+        SquareMarkerDetector() : PipeMerge() {
             _markerWarpSize = 56;
             _cornerMethod = HARRIS;
-            frame = NULL;
-            shapes = NULL;
-            frameSourcePipe = NULL;
-            shapesSourcePipe = NULL;
         }
         
         
-        bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
         /*SquareMarkerDetector* set()
          {
          
          return this;
          }*/
+        
         virtual int detectMarker(const cv::Mat &in,int &nRotations)=0;
         
-        SquareMarkerDetector* setFrameSource(BasePipe *frameSource)
-        {
-            frameSourcePipe = frameSource;
-            return this;
-        }
-        
-        SquareMarkerDetector* setShapesSource(BasePipe *shapeSource)
-        {
-            shapesSourcePipe = shapeSource;
-            return this;
-        }
-        
+        void processFrameAndShapes();
+                
     protected:
         vector<Marker>  detectedMarkers;
         int _markerWarpSize;
         CornerRefinementMethod _cornerMethod;
-        BasePipe *frameSourcePipe;
-        BasePipe *shapesSourcePipe;
-        
-        BaseFrameContainer *frame;
-        BaseFrameContainer *shapes;
         
         void doTheDetection();
         
