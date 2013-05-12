@@ -135,8 +135,6 @@
     //CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     
     // Create a bitmap graphics context with the sample buffer data
-    
-    
     CGContextRef context = CGBitmapContextCreate(baseAddress, width, height, 8,
                                                  bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedFirst);
     

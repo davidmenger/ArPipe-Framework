@@ -131,23 +131,6 @@ bool _setUpped = false;
             glBindFramebufferOES(GL_FRAMEBUFFER_OES, defaultFramebuffer);
             
             
-            /*const GLfloat			lightAmbient[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			lightDiffuse[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			matAmbient[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			matDiffuse[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			matSpecular[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			lightPosition[] = {1.0, 1.0, 1.0, 1.0};
-             const GLfloat			lightShininess = 100.0;
-             
-             glEnable(GL_LIGHTING);
-             glEnable(GL_LIGHT0);
-             glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, matAmbient);
-             glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, matDiffuse);
-             glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, matSpecular);
-             glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, lightShininess);
-             glLightfv(GL_LIGHT0, GL_AMBIENT, lightAmbient);
-             glLightfv(GL_LIGHT0, GL_DIFFUSE, lightDiffuse);
-             glLightfv(GL_LIGHT0, GL_POSITION, lightPosition); 	*/
             glShadeModel(GL_SMOOTH);
             glEnable(GL_DEPTH_TEST);
             
@@ -164,42 +147,21 @@ bool _setUpped = false;
             //glViewport(0, 0, self.bounds.size.width, self.bounds.size.height);
             glViewport(0, 0, backingWidth, backingHeight);
             
-            //NSLog(@"bounds: [%d, %d], ", backingWidth, backingHeight);
-            
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E5: Error glGetError: glError: 0x%04X", err);
-            }
             
             glEnable(GL_DEPTH_TEST); /* enable depth testing; required for z-buffer */
             
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E6: Error glGetError: glError: 0x%04X", err);
-            }
             
             //glEnable(GL_CULL_FACE); /* enable polygon face culling */
             //glCullFace(GL_CLEAR);
             
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E4: Error glGetError: glError: 0x%04X", err);
-            }
             
             //Make the OpenGL modelview matrix the default
             //glMatrixMode(GL_MODELVIEW);
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E3: Error glGetError: glError: 0x%04X", err);
-            }
+            
             
             //We enable normalization
             glEnable(GL_NORMALIZE);
             
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E2: Error glGetError: glError: 0x%04X", err);
-            }
             
             const GLfloat squareVertices2[] = {
                 // FRONT
@@ -234,24 +196,13 @@ bool _setUpped = false;
                 0.1f, -0.1f, -0.1f,
             };
             
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E1: Error glGetError: glError: 0x%04X", err);
-            }
             
             
-            //glDisableClientState(GL_VERTEX_ARRAY);
-            //glDisableClientState(GL_NORMAL_ARRAY);
-            //glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-            //glDisable(GL_TEXTURE_2D);
             
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
-            err = glGetError();
-            if (err != GL_NO_ERROR) {
-                NSLog(@"E: Error glGetError: glError: 0x%04X", err);
-            }
+            
             
             glEnableClientState(GL_VERTEX_ARRAY);
             glVertexPointer(3, GL_FLOAT, 0, squareVertices2);

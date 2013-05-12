@@ -20,19 +20,41 @@ namespace ArPipe {
     
     //! Basic Frame and Shapes container
     /**
-     * This is Allowed to replace.
+     * This object contains image, contours and marker data. BaseFrameContainer can be extended by user.
      */
     class BaseFrameContainer {
       
     public:
+        /**
+         * Constructor used for fast creation with cv::Mat image matrix
+         * @param frameMat initial cv::Mat
+         */
         BaseFrameContainer(cv::Mat frameMat);
+        
+        /**
+         * Constructor used for fast creation with Frame object
+         * @param frm Frame object
+         */
         BaseFrameContainer(Frame* frm);
         
         ~BaseFrameContainer();
         
+        /**
+         * 
+         * @return Contained Frame object
+         */
         Frame* getFrame();
+        
+        /**
+         * 
+         * @return Contained Shapes object
+         */
         Shapes* getShapes();
         
+        /**
+         * Clone method is used, when PipeLine is forked
+         * @return duplicate of called BaseFrameContainer
+         */
         BaseFrameContainer* clone();
         
         /**

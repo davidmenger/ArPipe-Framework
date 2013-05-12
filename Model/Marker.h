@@ -2,8 +2,8 @@
 //  Marker.h
 //  AR
 //
-//  Created by Menger David on 13.04.13.
-//  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
+//  Created by Aruco team
+//  http://www.uco.es/investiga/grupos/ava/node/26
 //
 
 #ifndef __AR__Marker__
@@ -19,8 +19,10 @@ using namespace std;
 namespace ArPipe {
     /**\brief This class represents a marker. It is a vector of the fours corners ot the marker
      *
+     * this Class is taken from Aruco framework. Thanks
+     * http://www.uco.es/investiga/grupos/ava/node/26
+     * 
      */
-    
     class Marker : public std::vector<cv::Point2f>
     {
     public:
@@ -34,15 +36,19 @@ namespace ArPipe {
         /**
          */
         Marker();
+        
         /**
          */
         Marker(const Marker &M);
+        
         /**
          */
         Marker(const  std::vector<cv::Point2f> &corners,int _id=-1);
+        
         /**
          */
         ~Marker() {}
+        
         /**Indicates if this object is valid
          */
         bool isValid()const{return id!=-1 && size()==4;}
@@ -56,6 +62,7 @@ namespace ArPipe {
          * @param CP parmeters of the camera
          */
         void calculateExtrinsics(float markerSize,const aruco::CameraParameters &CP)throw(cv::Exception);
+        
         /**Calculates the extrinsics (Rvec and Tvec) of the marker with respect to the camera
          * @param markerSize size of the marker side expressed in meters
          * @param CameraMatrix matrix with camera parameters (fx,fy,cx,cy)
@@ -72,12 +79,15 @@ namespace ArPipe {
         /**Returns the centroid of the marker
          */
         cv::Point2f getCenter()const;
+        
         /**Returns the perimeter of the marker
          */
         float getPerimeter()const;
+        
         /**Returns the area
          */
         float getArea()const;
+        
         /**
          */
         /**

@@ -19,18 +19,34 @@ namespace ArPipe {
     class Shapes
     {
     public:
+        
+        /**
+         * Empty constructor
+         */
         Shapes() : contours(), hierarchy(), markers() {
             
         }
         
+        /**
+         * Returns reference to vector for capturing contours
+         * @return 
+         */
         std::vector<std::vector<cv::Point> > &getContours() {
             return contours;
         }
         
+        /**
+         * Returns reference to vector for capturing contours hierarchy
+         * @return 
+         */
         std::vector<cv::Vec4i> &getHierarchy() {
             return hierarchy;
         }
         
+        /**
+         * Returns reference to vector containing detected Marker objects
+         * @return 
+         */
         std::vector<Marker> &getMarkers() {
             return markers;
         }
@@ -47,6 +63,10 @@ namespace ArPipe {
             contours = newContours;
         }
         
+        /**
+         * Returns copy of Shapes object
+         * @return 
+         */
         Shapes* clone();
         
     protected:

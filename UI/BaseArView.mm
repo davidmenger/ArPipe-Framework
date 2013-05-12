@@ -56,9 +56,8 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
                 colorSpace = CGColorSpaceCreateDeviceRGB();
             }
             
-            //CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
             CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef) data);
-            //CGImageRelease(cgImageRef);
+            
             // Creating CGImage from cv::Mat
             CGImageRef cgImageRef =  CGImageCreate(mat.cols, mat.rows,                                 //height
                                                 8,                                          //bits per component
@@ -90,8 +89,6 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
             hasNewFrame = TRUE;
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                //[frameOutputView setImage:img];
-                //[img release];
                 [slf setNeedsDisplay];
             });
             
@@ -118,10 +115,6 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
                 
             }
         }
-        
-        
-        
-        //processingFrame = FALSE;
     }
 }
 
@@ -130,13 +123,12 @@ void pushNewFrameContainer(ArPipe::BaseFrameContainer *frm)
     [super drawRect:rect];
     if (hasNewFrame && shownFrameOutput && !processingFrame) {
         processingFrame = TRUE;
-        //CGImageRef ref = (CGImageRef) frameOutputLayer.contents;
+        
         UIImage *tmp = [img copy];
         [frameOutputView setImage: tmp];
         [tmp release];
         
         
-        //[img release];
         hasNewFrame = FALSE;
         processingFrame = false;
     }

@@ -13,6 +13,11 @@
 #include "BasePipe.h"
 
 namespace ArPipe {
+    
+    //! Converts Black And White image to color or back
+    /**
+     * Converting image to black and white can speed up feature detection
+     */
     class BlackAndWhite : public BasePipe
     {
     public:
@@ -20,11 +25,20 @@ namespace ArPipe {
             color = false;
         }
         BlackAndWhite(BaseFrameSource *previousPipe) : BasePipe(previousPipe) {}
+        
+        /**
+         * Factory to create new BlackAndWhite pipe
+         * @return new instance
+         */
         static BlackAndWhite* init() {
             return new BlackAndWhite();
         }
         bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
+        /**
+         * Convert BlackAndWhite image to color
+         * @return current pipe object. Supports fluent interface
+         */
         BlackAndWhite* toColor()
         {
             color = true;

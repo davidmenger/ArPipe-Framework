@@ -14,11 +14,24 @@
 
 namespace ArPipe {
     
+    //! Class used to connect pipeline to ObjectiveC class
+    /**
+     * Encapsulate this object in your ObjectiveC data output
+     */
     class PipeOutputConnector : public BasePipeOutput
     {
     public:
         PipeOutputConnector(){};
+        
+        /**
+         * Callback will be called, when new BaseFrameContainer is received
+         * @param callback function to invoke
+         */
         void setOnNewFrameContainerCallback(void (*callback)(BaseFrameContainer *frm));
+        
+        /**
+         * Don't call directly. 
+         */
         bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
     protected:

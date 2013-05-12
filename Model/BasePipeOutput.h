@@ -14,6 +14,10 @@
 
 namespace ArPipe {
     
+    //! Abstract class representing image or vector data output
+    /**
+     * To create output for pipe, extend this class
+     */
     class BasePipeOutput : public BasePipe
     {
     

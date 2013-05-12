@@ -4,6 +4,7 @@
 //
 //  Created by Menger David on 07.04.13.
 //  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
+//  Using Aruco framework algorithms: http://www.uco.es/investiga/grupos/ava/node/26
 //
 
 #ifndef __AR__DrawContrours__
@@ -15,6 +16,7 @@
 
 namespace ArPipe {
     
+    //! Simple pipe to Draw detected contours and markers to Frame
     class DrawContours : public BasePipe
     {
     public:
@@ -31,6 +33,10 @@ namespace ArPipe {
             
         }
         
+        /**
+         * Factory to create new CameraApply pipe
+         * @return new instance
+         */
         static DrawContours* init() {
             return new DrawContours();
         }

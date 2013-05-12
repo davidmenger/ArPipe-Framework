@@ -4,6 +4,7 @@
 //
 //  Created by Menger David on 07.04.13.
 //  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
+//  Using Aruco framework algorithms: http://www.uco.es/investiga/grupos/ava/node/26
 //
 
 #include "DrawContrours.h"

@@ -4,6 +4,7 @@
 //
 //  Created by Menger David on 14.04.13.
 //  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
+//  Using Aruco framework algorithms: http://www.uco.es/investiga/grupos/ava/node/26
 //
 
 #include "SquareMarkerDetector.h"
@@ -35,8 +36,6 @@ namespace ArPipe {
                 //sort the points so that they are always in the same order no matter the camera orientation
                 std::rotate(detectedMarkers.back().begin(),detectedMarkers.back().begin()+4-nRotations,detectedMarkers.back().end());
             }
-            /*else
-                _candidates.push_back(shapes->getMarkers()[i]);*/
         }
         
         

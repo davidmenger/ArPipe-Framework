@@ -4,6 +4,7 @@
 //
 //  Created by Menger David on 14.04.13.
 //  Copyright (c) 2013 storyous.com s.r.o. All rights reserved.
+//  Using Aruco framework algorithms: http://www.uco.es/investiga/grupos/ava/node/26
 //
 
 #ifndef __AR__SquareMarkerDetector__
@@ -16,6 +17,10 @@ namespace ArPipe {
     
     enum CornerRefinementMethod {NONE,HARRIS,SUBPIX};
     
+    //! Abstract class providing interface to identify detected markers
+    /**
+     * Extend this class to create own marker detector
+     */
     class SquareMarkerDetector : public PipeMerge
     {
     public:
@@ -25,14 +30,12 @@ namespace ArPipe {
             _cornerMethod = HARRIS;
         }
         
-        
-        
-        /*SquareMarkerDetector* set()
-         {
-         
-         return this;
-         }*/
-        
+        /**
+         * Method to override in extending class to process marker
+         * @param in Normalized marker image data
+         * @param nRotations number of rotations
+         * @return 
+         */
         virtual int detectMarker(const cv::Mat &in,int &nRotations)=0;
         
         void processFrameAndShapes();

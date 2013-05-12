@@ -18,19 +18,56 @@ namespace ArPipe {
     class Frame { 
         
     public:
+        /**
+         * Contains OpenCV matrix with image data
+         */
         Mat frame;
 
+        /**
+         * Empty constructor
+         */
         Frame();
+        
+        /**
+         * Creates new instance of Frame with OpenCV matrix data
+         * @param frm
+         */
         Frame(Mat frm);
+        
+        /**
+         * Destructor of image data 
+         */
         ~Frame();
         
+        /**
+         * Method for create copy of Frame object
+         * @return new instance which will contain new copy of image data
+         */
         Frame* clone();
         
+        /**
+         * Returns OpenCV image data reference for modification inside 
+         * Pipe objects
+         * @return reference to cv::Mat
+         */
         Mat &getMat();
-        void rotate(int degrees);
+        
+        /**
+         * 
+         * @return true if image data is in only one channel
+         */
         bool isGrey();
         
+        /**
+         * 
+         * @return count of image data channels
+         */
         int getChannelCount();
+        
+        /**
+         * 
+         * @return Color depth of channels
+         */
         double getDepth();
     };
         

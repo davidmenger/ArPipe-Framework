@@ -15,21 +15,36 @@
 
 namespace ArPipe {
     
+    //! Class for image rotate in 90 degrees multiples
     class PolarRotate : public BasePipe
     {
     protected:
         int deg;
         
     public:
+        /**
+         * Constructor which determines angle to rotate image
+         * @param degrees degrees to clockwise image rotate
+         */
         PolarRotate(int degrees) : BasePipe() {
             this->setDeg(degrees);
         }
         
+        /**
+         * Factory to create image rotating pipe
+         * @param degrees degrees to clockwise image rotate
+         * @return new instance
+         */
         static PolarRotate* init(int degrees) {
             PolarRotate* obj = new PolarRotate(degrees);
             return obj;
         }
         
+        /**
+         * Setter for degrees value
+         * @param degrees degrees to clockwise image rotate
+         * @return current pipe object. Supports fluent interface
+         */
         PolarRotate* setDeg(int degrees) {
             if (degrees%90!=0) {
                 deg = round(degrees/90)*90;

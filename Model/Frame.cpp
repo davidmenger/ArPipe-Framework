@@ -31,10 +31,6 @@ namespace ArPipe {
         return frame;
     }
     
-    void Frame::rotate(int degrees) {
-        cv::transpose(frame, frame);
-        cv::flip(frame, frame, 1);
-    }
     
     bool Frame::isGrey()
     {

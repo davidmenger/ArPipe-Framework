@@ -13,6 +13,11 @@
 #include "BasePipe.h"
 
 namespace ArPipe {
+    
+    //! Encapsulated OpenCV Threshold function
+    /**
+     * Canny function is useful for feature detection in image
+     */
     class Canny : public BasePipe
     {
     public:
@@ -22,11 +27,22 @@ namespace ArPipe {
         Canny() : BasePipe() {
             autoThresholds = true;
         }
+        
+         /**
+         * Factory to create new Canny pipe
+         * @return new instance
+         */
         static Canny* init() {
             return new Canny();
         }
         bool processFrameContainer(BaseFrameContainer *frm, BaseFrameSource *frameSource);
         
+        /**
+         * Sets static upper and lower threshold values
+         * @param lower
+         * @param upper
+         * @return current pipe object. Supports fluent interface
+         */
         Canny* setThresholds(double lower, double upper)
         {
             lowerThreshold = lower;
@@ -35,6 +51,10 @@ namespace ArPipe {
             return this;
         }
         
+        /**
+        * Use Automatic threshold values
+        * @return current pipe object. Supports fluent interface
+        */
         Canny* setAutoThreshold()
         {
             autoThresholds = true;

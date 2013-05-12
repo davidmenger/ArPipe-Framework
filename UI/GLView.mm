@@ -33,22 +33,7 @@
         
         eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
                                         [NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil];
-		//CGFloat components[] = {0.0f, 0.0, 1.0, 0.0};
-        //eaglLayer.backgroundColor = CGColorCreate(CGColorSpaceCreateDeviceRGB(), components);
-		/*renderer = [[ES2Renderer alloc] init];
-         
-         eaglLayer.opaque = FALSE;
-         
-         if (!renderer)
-         {
-         renderer = [[ES1Renderer alloc] init];
-         
-         if (!renderer)
-         {
-         [self release];
-         return nil;
-         }
-         }*/
+		
         
         renderer = [[GLRenderer alloc] init];
         
@@ -67,7 +52,7 @@
         
         [self setOpaque:NO];
     }
-	//[self setBackgroundColor:[UIColor redColor]];
+    
     return self;
 }
 

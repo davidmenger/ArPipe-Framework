@@ -14,6 +14,10 @@
 
 namespace ArPipe {
     
+    //! Advanced blur function
+    /**
+     * Supports Gaussian, median and bilateral blur.
+     */
     class Blur : public BasePipe
     {
     public:
@@ -24,10 +28,20 @@ namespace ArPipe {
             kernelLength = 10;
             type = ARP_BLUR_STANDARD;
         }
+        
+        /**
+         * Factory to create new Blur pipe
+         * @return new instance
+         */
         static Blur* init() {
             return new Blur();
         }
         
+        /**
+         * Factory to create new Blur pipe with predefined blur depth   
+         * @param depth
+         * @return new instance
+         */
         static Blur* init(int depth) {
             return Blur::init()->setDepth(depth);
         }
@@ -40,24 +54,41 @@ namespace ArPipe {
             return this;
         }
         
+        /**
+         * Setter for blur cycles depth
+         * @param depth
+         * @return current pipe object. Supports fluent interface
+         */
         Blur* setDepth(int depth)
         {
             kernelLength = depth;
             return this;
         }
         
+        /**
+         * Use Gaussian blur
+         * @return  current pipe object. Supports fluent interface
+         */
         Blur* setTypeGaussian()
         {
             type = ARP_BLUR_GAUSSIAN;
             return this;
         }
         
+        /**
+         * Use Median blur
+         * @return  current pipe object. Supports fluent interface
+         */
         Blur* setTypeMedian()
         {
             type = ARP_BLUR_MEDIAN;
             return this;
         }
         
+        /**
+         * Use Bilateral blur
+         * @return  current pipe object. Supports fluent interface
+         */
         Blur* setTypeBilateral()
         {
             type = ARP_BLUR_BILATERAL;
